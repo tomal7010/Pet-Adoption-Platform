@@ -3,9 +3,7 @@ import useAxios from "../hooks/useAxios";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router";
 
-
 const PetListing = () => {
-  
   const axiosInstance = useAxios();
   const [pets, setPets] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -32,26 +30,18 @@ const PetListing = () => {
     const matchCategory =
       selectedCategory === "All" ||
       (pet.type && pet.type.toLowerCase() === selectedCategory.toLowerCase());
-    const matchSearch = pet.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+
+    const matchSearch =
+      pet.petName?.toLowerCase().includes(searchTerm.toLowerCase());
+
     return matchCategory && matchSearch;
   });
 
-  //const handleViewDetails = (pet) => {
-   // alert(`Pet Name: ${pet.name}\nAge: ${pet.age}\nType: ${pet.type}\nLocation: ${pet.location || "Unknown"}`);
-  //};
+  const navigate = useNavigate();
 
-
-  const navigate = useNavigate(); 
-
-const handleViewDetails = (pet) => {
-  navigate(`/pets/${pet._id}`);
-};
-
-
-
-
+  const handleViewDetails = (pet) => {
+    navigate(`/pets/${pet._id}`);
+  };
 
   return (
     <div>
@@ -61,9 +51,7 @@ const handleViewDetails = (pet) => {
           Available Pets for Adoption
         </h2>
 
-        {/* Filter Controls */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          {/* Dropdown */}
           <select
             className="border p-2 rounded w-full sm:w-52"
             value={selectedCategory}
@@ -76,7 +64,6 @@ const handleViewDetails = (pet) => {
             ))}
           </select>
 
-          {/* Search bar */}
           <input
             type="text"
             placeholder="Search pets by name..."
@@ -86,7 +73,6 @@ const handleViewDetails = (pet) => {
           />
         </div>
 
-        {/* Pet Cards */}
         {filteredPets.length === 0 ? (
           <p className="text-center text-gray-500">No pets found.</p>
         ) : (
@@ -98,22 +84,20 @@ const handleViewDetails = (pet) => {
               >
                 <img
                   src={
-                    pet.imageUrl ||
-                    pet.image ||
+                    pet.petImage ||
                     "https://via.placeholder.com/300x200"
                   }
-                  alt={pet.name}
+                  alt={pet.petName}
                   className="w-full h-48 object-cover rounded mb-3"
                 />
                 <div className="text-center">
-                <h2 className="text-xl font-semibold">{pet.name}</h2>
-                <p className="text-sm text-gray-600">Age: {pet.age}</p>
-                <p className="text-sm text-gray-600 capitalize">
-                  Type: {pet.type}
-                </p>
+                  <h2 className="text-xl font-semibold capitalize">{pet.petName}</h2>
+                  <p className="text-sm text-gray-600">Age: {pet.age}</p>
+                  <p className="text-sm text-gray-600 capitalize">
+                    Type: {pet.type}
+                  </p>
                 </div>
 
-                {/* View Details Button */}
                 <button
                   onClick={() => handleViewDetails(pet)}
                   className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition cursor-pointer"
@@ -130,4 +114,3 @@ const handleViewDetails = (pet) => {
 };
 
 export default PetListing;
-

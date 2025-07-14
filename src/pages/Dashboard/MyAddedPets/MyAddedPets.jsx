@@ -97,6 +97,9 @@ const MyAddedPets = () => {
   };
 
   return (
+    <div>
+      <h1 className='text-center font-bold text-3xl text-red-600 pb-5'>My Added Pets</h1>
+
     <div className="overflow-x-auto shadow-md rounded-xl">
       <table className="table table-zebra w-full">
         <thead className="bg-base-200 text-base font-semibold">
@@ -115,12 +118,12 @@ const MyAddedPets = () => {
               <td>{startIndex + index + 1}</td>
               <td>
                 <img
-                  src={addedpet.image}
-                  alt={addedpet.name}
+                  src={addedpet.petImage}
+                  alt={addedpet.petName}
                   className="w-20 h-16 object-cover rounded-md"
                 />
               </td>
-              <td className="capitalize">{addedpet.name}</td>
+              <td className="capitalize">{addedpet.petName}</td>
               <td>{addedpet.type}</td>
               <td>
                 {addedpet.adopted ? (
@@ -136,6 +139,8 @@ const MyAddedPets = () => {
                 >
                   Update
                 </button>
+
+
                 {!addedpet.adopted && (
                   <button
                     onClick={() => handleAdopt(addedpet._id)}
@@ -144,6 +149,9 @@ const MyAddedPets = () => {
                     Adopt
                   </button>
                 )}
+
+
+
                 <button
                   onClick={() => handleDelete(addedpet._id)}
                   className="btn btn-xs btn-error"
@@ -177,6 +185,7 @@ const MyAddedPets = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

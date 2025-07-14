@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router'; 
+import { useParams } from 'react-router';
 import useAxios from '../../hooks/useAxios';
 
 const CategoryPage = () => {
@@ -9,14 +9,17 @@ const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("URL param (type):", type); 
+
     axiosInstance.get('/preview-pets')
       .then(res => {
-        console.log('API Response:', res.data); 
+        console.log("API Response:", res.data); 
 
-        
         const filtered = res.data.filter(pet =>
-          pet.type.toLowerCase().includes(type.toLowerCase())
+          pet?.type?.toLowerCase() === type?.toLowerCase()
         );
+
+        console.log("Filtered Pets:", filtered); 
 
         setPets(filtered);
         setLoading(false);
@@ -42,13 +45,15 @@ const CategoryPage = () => {
           {pets.map(pet => (
             <div key={pet._id} className="border p-4 rounded shadow hover:shadow-md transition">
               <img
-                src={pet.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'}
-                alt={pet.name}
+                src={pet.petImage || 'https://via.placeholder.com/300x200?text=No+Image'}
+                alt={pet.petName}
                 className="w-full h-48 object-cover rounded mb-3"
               />
-              <h2 className="text-xl font-semibold">{pet.name}</h2>
+              <div className='text-center'>
+              <h2 className="text-xl font-semibold capitalize">{pet.petName}</h2>
               <p className="text-sm text-gray-600">Age: {pet.age}</p>
               <p className="text-sm text-gray-600 capitalize">Type: {pet.type}</p>
+              </div>
             </div>
           ))}
         </div>

@@ -23,23 +23,23 @@ const AddPet = () => {
   const [uploading, setUploading] = useState(false);
 
   const initialValues = {
-    name: "",
+    petName: "",
     type: "",
     breed: "",
     age: "",
     gender: "",
     location: "",
-    description: "",
-    longDescription: "",
+    shortDesc: "",
+    longDesc: "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required("Pet name is required"),
+    petName: Yup.string().required("Pet name is required"),
     type: Yup.string().required("Pet category is required"),
     age: Yup.number().required("Age is required"),
     location: Yup.string().required("Location is required"),
-    description: Yup.string().required("Short description is required"),
-    longDescription: Yup.string().required("Long description is required"),
+    shortDesc: Yup.string().required("Short description is required"),
+    longDesc: Yup.string().required("Long description is required"),
   });
 
   const handleImageUpload = async (e) => {
@@ -71,10 +71,12 @@ const AddPet = () => {
 
     const petData = {
       ...values,
-      image: imageUrl,
+      petImage: imageUrl,
       status: "Available",
       adopted: false,
       created_at: new Date(),
+      userPostEmail: user?.email,
+      userPostName: user?.displayName,
       userEmail: user?.email,
     };
 
@@ -103,7 +105,7 @@ const AddPet = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Add a Pet</h2>
+      <h1 className='text-center font-bold text-3xl text-red-600 pb-5'>Add a Pet</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -119,8 +121,8 @@ const AddPet = () => {
             </div>
             <div>
               <label>Pet Name:</label>
-              <Field name="name" className="input" />
-              <ErrorMessage name="name" component="div" className="text-red-500" />
+              <Field name="petName" className="input" />
+              <ErrorMessage name="petName" component="div" className="text-red-500" />
             </div>
             <div>
               <label>Pet Category:</label>
@@ -154,13 +156,13 @@ const AddPet = () => {
             </div>
             <div>
               <label>Short Description:</label>
-              <Field name="description" className="input" />
-              <ErrorMessage name="description" component="div" className="text-red-500" />
+              <Field name="shortDesc" className="input" />
+              <ErrorMessage name="shortDesc" component="div" className="text-red-500" />
             </div>
             <div>
               <label>Long Description:</label>
-              <Field name="longDescription" as="textarea" className="textarea" />
-              <ErrorMessage name="longDescription" component="div" className="text-red-500" />
+              <Field name="longDesc" as="textarea" className="textarea" />
+              <ErrorMessage name="longDesc" component="div" className="text-red-500" />
             </div>
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Add Pet"}

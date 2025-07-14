@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -6,6 +7,8 @@ import Select from "react-select";
 import Swal from "sweetalert2";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { AuthContext } from "../../contexts/AuthProvider";
+
 
 const petCategories = [
   { value: "Dog", label: "Dog" },
@@ -15,19 +18,20 @@ const petCategories = [
 ];
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Pet name is required"),
+  petName: Yup.string().required("Pet name is required"),
   type: Yup.string().required("Pet category is required"),
   age: Yup.number().required("Age is required"),
   location: Yup.string().required("Location is required"),
-  description: Yup.string().required("Short description is required"),
-  longDescription: Yup.string().required("Long description is required"),
-  image: Yup.string().required("Image is required"),
+  shortDesc: Yup.string().required("Short description is required"),
+  longDesc: Yup.string().required("Long description is required"),
+  petImage: Yup.string().required("Image is required"),
 });
 
 const UpdatePet = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
 
   const [petData, setPetData] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -58,7 +62,7 @@ const UpdatePet = () => {
         formData
       );
       const uploadedUrl = res.data?.data?.url;
-      setFieldValue("image", uploadedUrl);
+      setFieldValue("petImage", uploadedUrl);
     } catch (error) {
       console.error("Image upload failed", error);
       Swal.fire("Error", "Image upload failed!", "error");
@@ -71,6 +75,8 @@ const UpdatePet = () => {
     const updatedPet = {
       ...values,
       updated_at: new Date(),
+      userPostName: user?.displayName || "Anonymous",
+      userPostEmail: user?.email || "unknown@example.com",
     };
 
     try {
@@ -102,15 +108,15 @@ const UpdatePet = () => {
       <h2 className="text-2xl font-bold mb-4">Update Pet</h2>
       <Formik
         initialValues={{
-          name: petData.name || "",
+          petName: petData.petName || "",
           type: petData.type || "",
           breed: petData.breed || "",
           age: petData.age || "",
           gender: petData.gender || "",
           location: petData.location || "",
-          description: petData.description || "",
-          longDescription: petData.longDescription || "",
-          image: petData.image || "",
+          shortDesc: petData.shortDesc || "",
+          longDesc: petData.longDesc || "",
+          petImage: petData.petImage || "",
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -127,18 +133,18 @@ const UpdatePet = () => {
                 onChange={(e) => handleImageUpload(e, setFieldValue)}
                 className="input"
               />
-              {uploading && <p>Uploading image...</p>}
-              {values.image && (
-                <img src={values.image} alt="Uploaded" className="h-24 mt-2" />
+              {uploading && <p>Uploading petImage...</p>}
+              {values.petImage && (
+                <img src={values.petImage} alt="Uploaded" className="h-24 mt-2" />
               )}
-              <ErrorMessage name="image" component="div" className="text-red-500" />
+              <ErrorMessage name="petImage" component="div" className="text-red-500" />
             </div>
 
             {/* Name */}
             <div>
               <label>Pet Name:</label>
-              <Field name="name" className="input input-bordered w-full" />
-              <ErrorMessage name="name" component="div" className="text-red-500" />
+              <Field name="petName" className="input input-bordered w-full" />
+              <ErrorMessage name="petName" component="div" className="text-red-500" />
             </div>
 
             {/* Type */}
@@ -185,19 +191,18 @@ const UpdatePet = () => {
             {/* Description */}
             <div>
               <label>Short Description:</label>
-              <Field name="description" className="input input-bordered w-full" />
-              <ErrorMessage name="description" component="div" className="text-red-500" />
+              <Field name="shortDesc" className="input input-bordered w-full" />
+              <ErrorMessage name="shortDesc" component="div" className="text-red-500" />
             </div>
 
-            {/* Long Description */}
             <div>
               <label>Long Description:</label>
               <Field
-                name="longDescription"
+                name="longDesc"
                 as="textarea"
                 className="textarea textarea-bordered w-full"
               />
-              <ErrorMessage name="longDescription" component="div" className="text-red-500" />
+              <ErrorMessage name="longDesc" component="div" className="text-red-500" />
             </div>
 
             {/* Submit */}
@@ -212,3 +217,6 @@ const UpdatePet = () => {
 };
 
 export default UpdatePet;
+
+
+

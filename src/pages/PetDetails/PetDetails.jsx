@@ -55,11 +55,11 @@ const PetDetails = () => {
       <Navbar />
 
       <div className="max-w-4xl mx-auto px-5 py-10">
-        <h2 className="text-3xl font-bold mb-6 text-center">{pet.name}</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">{pet.petName}</h2>
 
         <img
-          src={pet.imageUrl || pet.image || "https://via.placeholder.com/400x300"}
-          alt={pet.name}
+          src={pet.petImage || pet.imageUrl || "https://via.placeholder.com/400x300"}
+          alt={pet.petName}
           className="w-full h-80 object-cover rounded mb-6"
         />
 
@@ -68,7 +68,7 @@ const PetDetails = () => {
             <p><strong>Age:</strong> {pet.age}</p>
             <p><strong>Type:</strong> {pet.type}</p>
             <p><strong>Location:</strong> {pet.location}</p>
-            <p><strong>Description:</strong> {pet.description || "No description provided."}</p>
+            <p><strong>Description:</strong> {pet.longDesc || "No description provided."}</p>
           </div>
 
           <button

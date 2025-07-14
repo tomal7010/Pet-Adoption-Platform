@@ -83,7 +83,7 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
-              to="/dashboard/MyAddedPets"
+              to="/dashboard/adoptionrequest"
               onClick={() => {
                 document.getElementById("my-drawer-2").checked = false;
               }}
@@ -96,7 +96,7 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
-              to="/dashboard/MyAddedPets"
+              to="/dashboard/createdonationcampaign"
               onClick={() => {
                 document.getElementById("my-drawer-2").checked = false;
               }}
@@ -109,7 +109,7 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
-              to="/dashboard/MyAddedPets"
+              to="/dashboard/my-donation-campaigns"
               onClick={() => {
                 document.getElementById("my-drawer-2").checked = false;
               }}
@@ -122,7 +122,7 @@ const DashboardLayout = () => {
 
           <li>
             <NavLink
-              to="/dashboard/MyAddedPets"
+              to="/dashboard/mydonations"
               onClick={() => {
                 document.getElementById("my-drawer-2").checked = false;
               }}
@@ -135,9 +135,10 @@ const DashboardLayout = () => {
 
         {/* For admin role*/}
         {role === 'admin' && (
+          <>
           <li className="text-yellow-300 font-bold">
           <NavLink
-              to="/dashboard/users"
+              to="/dashboard/adminuserspage"
               onClick={() => {
                 document.getElementById("my-drawer-2").checked = false;
               }}
@@ -145,13 +146,36 @@ const DashboardLayout = () => {
               <FaBoxOpen className="inline-block mr-2" />
               All Users Data List
             </NavLink>
-
-
-
           </li>
-        
-        )}
 
+
+          <li className="text-yellow-300 font-bold">
+          <NavLink
+              to="/dashboard/admin-all-pets"
+              onClick={() => {
+                document.getElementById("my-drawer-2").checked = false;
+              }}
+            >
+              <FaBoxOpen className="inline-block mr-2" />
+               All Pets Data List
+            </NavLink>
+          </li>
+
+
+          <li className="text-yellow-300 font-bold">
+          <NavLink
+              to="/dashboard/admin-all-donations"
+              onClick={() => {
+                document.getElementById("my-drawer-2").checked = false;
+              }}
+            >
+              <FaBoxOpen className="inline-block mr-2" />
+               All Donations
+            </NavLink>
+          </li>
+
+          </>
+        )}
 
         </ul>
       </div>
@@ -162,29 +186,3 @@ const DashboardLayout = () => {
 
 export default DashboardLayout;
 
-/*
-import { Outlet } from 'react-router';
-import Sidebar from '../pages/Dashboard/Sidebar';
-
-
-const DashboardLayout = () => {
-  return (
-    <div className="flex h-screen">
-      <Sidebar />
-
-
-      {/*<div className="flex-1 flex flex-col">
-        <TopNavbar />/}
-
-
-        <div className="p-4 overflow-auto flex-1">
-          <Outlet />
-        </div>
-      </div>
-    
-  );
-};
-
-
-export default DashboardLayout;
-*/

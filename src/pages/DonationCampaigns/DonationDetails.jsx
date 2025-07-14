@@ -34,18 +34,26 @@ const DonationDetails = () => {
     <div>
       <Navbar />
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-        <img src={campaign.petImage} alt={campaign.petName} className="w-96 h-52 rounded-lg mb-6" />
+        <img src={campaign.image} alt={campaign.petName} className="w-96 h-52 rounded-lg mb-6" />
         <h2 className="text-3xl font-bold">{campaign.petName}</h2>
         <p className="mt-2 text-gray-600">Max Donation: ${campaign.maxDonation}</p>
         <p className="text-gray-600">Already Donated: ${campaign.donatedAmount}</p>
 
-        <button
-          onClick={() => setShowModal(true)}
-          className="mt-6 bg-primary text-white px-4 py-2 rounded cursor-pointer"
-        >
-          Donate Now
-        </button>
+        {/* Show Donate button if donate is false, otherwise show paused message */}
+        {campaign.donate ? (
+          <p className="text-red-500 font-semibold mt-4">
+            Donations are paused for this campaign.
+          </p>
+        ) : (
+          <button
+            onClick={() => setShowModal(true)}
+            className="mt-6 bg-primary text-white px-4 py-2 rounded cursor-pointer"
+          >
+            Donate Now
+          </button>
+        )}
 
+        {/* Donation Modal */}
         {showModal && (
           <DonateModal
             onClose={() => setShowModal(false)}

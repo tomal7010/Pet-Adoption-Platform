@@ -14,6 +14,17 @@ import PrivateRoute from "../routes/PrivateRoute";
 import AddPet from "../pages/Dashboard/AddPet/AddPet";
 import MyAddedPets from "../pages/Dashboard/MyAddedPets/MyAddedPets";
 import UpdatePet from "../pages/Dashboard/UpdatePet";
+import CreateDonationCampaign from "../pages/Dashboard/CreateDonationCampaign";
+import MyDonationCampaigns from "../pages/Dashboard/MyDonationCampaigns";
+import EditDonation from "../pages/Dashboard/EditDonation";
+import MyDonations from "../pages/Dashboard/MyDonations";
+import AdoptionRequest from "../pages/Dashboard/AdoptionRequest";
+import AdminUsersPage from "../pages/Dashboard/admin/AdminUsersPage";
+import AdminRoute from "../hooks/AdminRoute";
+import AdminAllPets from "../pages/Dashboard/admin/AdminAllPets";
+import AdminAllDonations from "../pages/Dashboard/admin/AdminAllDonations";
+import EditAdminDonation from "../pages/Dashboard/admin/EditAdminDonation";
+
 
 export const router = createBrowserRouter([
   {
@@ -82,8 +93,54 @@ export const router = createBrowserRouter([
         {
       path: "/dashboard/update-pet/:id",
       element: <UpdatePet></UpdatePet>
+    },
+    {
+      path: "/dashboard/createdonationcampaign",
+      element: <CreateDonationCampaign></CreateDonationCampaign>
+    },
+    {
+      path: "/dashboard/my-donation-campaigns",
+      element: <MyDonationCampaigns></MyDonationCampaigns>
+    },
+    {
+      path: "/dashboard/edit-donation/:id",
+      element: <EditDonation></EditDonation>
+    },
+    
+    {
+      path: "/dashboard/mydonations",
+      element: <MyDonations></MyDonations>
+    },
+
+    {
+      path: "/dashboard/adoptionrequest",
+      element: <AdoptionRequest></AdoptionRequest>
+    },
+
+    {
+      path: "/dashboard/adminuserspage",
+      element: <AdminRoute><AdminUsersPage></AdminUsersPage></AdminRoute>
+      
+    },
+
+    {
+      path: "/dashboard/admin-all-pets",
+      element: <AdminRoute> <AdminAllPets></AdminAllPets> </AdminRoute>
+      
+    },
+
+    {
+      path: "/dashboard/admin-all-donations",
+      element: <AdminRoute> <AdminAllDonations></AdminAllDonations> </AdminRoute>
+      
+    },
+
+    {
+      path: "/dashboard/admin-edit-donation/:id",
+      element: <AdminRoute> <EditAdminDonation></EditAdminDonation> </AdminRoute> 
     }
-        
+
+    
          ]
       
   }
