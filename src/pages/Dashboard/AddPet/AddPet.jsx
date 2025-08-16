@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Select from "react-select";
 import Swal from "sweetalert2";
-
 import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
@@ -104,67 +103,112 @@ const AddPet = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className='text-center font-bold text-3xl text-red-600 pb-5'>Add a Pet</h1>
+    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl">
+      <h1 className="text-center font-bold text-3xl text-red-600 pb-6">Add a Pet</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ setFieldValue, isSubmitting }) => (
-          <Form className="space-y-4">
-            <div>
-              <label>Pet Image:</label>
-              <input type="file" onChange={handleImageUpload} className="input" />
-              {uploading && <p>Uploading image...</p>}
-              {imageUrl && <img src={imageUrl} alt="Uploaded" className="h-24 mt-2" />}
+          <Form className="space-y-5">
+            {/* Image Upload */}
+            <div className="flex flex-col items-center">
+              <label className="font-medium mb-2">Pet Image:</label>
+              <input
+                type="file"
+                onChange={handleImageUpload}
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
+              {uploading && <p className="text-gray-500 mt-2">Uploading image...</p>}
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="Uploaded"
+                  className="h-32 w-32 object-cover rounded-lg mt-3 shadow-md"
+                />
+              )}
             </div>
+
+            {/* Pet Name */}
             <div>
-              <label>Pet Name:</label>
-              <Field name="petName" className="input" />
-              <ErrorMessage name="petName" component="div" className="text-red-500" />
+              <label className="font-medium">Pet Name:</label>
+              <Field name="petName" className="input input-bordered w-full mt-1" />
+              <ErrorMessage name="petName" component="div" className="text-red-500 mt-1" />
             </div>
+
+            {/* Pet Category */}
             <div>
-              <label>Pet Category:</label>
+              <label className="font-medium">Pet Category:</label>
               <Select
                 options={petCategories}
+                className="mt-1"
                 onChange={(option) => setFieldValue("type", option.value)}
               />
-              <ErrorMessage name="type" component="div" className="text-red-500" />
+              <ErrorMessage name="type" component="div" className="text-red-500 mt-1" />
             </div>
+
+            {/* Breed */}
             <div>
-              <label>Breed:</label>
-              <Field name="breed" className="input" />
+              <label className="font-medium">Breed:</label>
+              <Field name="breed" className="input input-bordered w-full mt-1" />
             </div>
+
+            {/* Age */}
             <div>
-              <label>Age:</label>
-              <Field name="age" type="number" className="input" />
-              <ErrorMessage name="age" component="div" className="text-red-500" />
+              <label className="font-medium">Age:</label>
+              <Field
+                name="age"
+                type="number"
+                className="input input-bordered w-full mt-1"
+              />
+              <ErrorMessage name="age" component="div" className="text-red-500 mt-1" />
             </div>
+
+            {/* Gender */}
             <div>
-              <label>Gender:</label>
-              <Field as="select" name="gender" className="input">
+              <label className="font-medium">Gender:</label>
+              <Field as="select" name="gender" className="select select-bordered w-full mt-1">
                 <option value="">Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </Field>
             </div>
+
+            {/* Location */}
             <div>
-              <label>Location:</label>
-              <Field name="location" className="input" />
-              <ErrorMessage name="location" component="div" className="text-red-500" />
+              <label className="font-medium">Location:</label>
+              <Field name="location" className="input input-bordered w-full mt-1" />
+              <ErrorMessage name="location" component="div" className="text-red-500 mt-1" />
             </div>
+
+            {/* Short Description */}
             <div>
-              <label>Short Description:</label>
-              <Field name="shortDesc" className="input" />
-              <ErrorMessage name="shortDesc" component="div" className="text-red-500" />
+              <label className="font-medium">Short Description:</label>
+              <Field
+                name="shortDesc"
+                className="input input-bordered w-full mt-1"
+              />
+              <ErrorMessage name="shortDesc" component="div" className="text-red-500 mt-1" />
             </div>
+
+            {/* Long Description */}
             <div>
-              <label>Long Description:</label>
-              <Field name="longDesc" as="textarea" className="textarea" />
-              <ErrorMessage name="longDesc" component="div" className="text-red-500" />
+              <label className="font-medium">Long Description:</label>
+              <Field
+                name="longDesc"
+                as="textarea"
+                className="textarea textarea-bordered w-full mt-1"
+              />
+              <ErrorMessage name="longDesc" component="div" className="text-red-500 mt-1" />
             </div>
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="btn btn-primary w-full mt-3"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Submitting..." : "Add Pet"}
             </button>
           </Form>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -8,7 +7,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../contexts/AuthProvider";
-
 
 const petCategories = [
   { value: "Dog", label: "Dog" },
@@ -64,7 +62,6 @@ const UpdatePet = () => {
       const uploadedUrl = res.data?.data?.url;
       setFieldValue("petImage", uploadedUrl);
     } catch (error) {
-      console.error("Image upload failed", error);
       Swal.fire("Error", "Image upload failed!", "error");
     } finally {
       setUploading(false);
@@ -100,123 +97,170 @@ const UpdatePet = () => {
   };
 
   if (!petData) {
-    return <div className="text-center py-10">Loading pet data...</div>;
+    return <div className="text-center py-10">
+
+
+      <span className="loading loading-bars loading-xs"></span>
+      <span className="loading loading-bars loading-sm"></span>
+      <span className="loading loading-bars loading-md"></span>
+      <span className="loading loading-bars loading-lg"></span>
+      <span className="loading loading-bars loading-xl"></span>
+
+
+
+    </div>;
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Update Pet</h2>
-      <Formik
-        initialValues={{
-          petName: petData.petName || "",
-          type: petData.type || "",
-          breed: petData.breed || "",
-          age: petData.age || "",
-          gender: petData.gender || "",
-          location: petData.location || "",
-          shortDesc: petData.shortDesc || "",
-          longDesc: petData.longDesc || "",
-          petImage: petData.petImage || "",
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-        enableReinitialize
-      >
-        {({ setFieldValue, isSubmitting, values }) => (
-          <Form className="space-y-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-6 md:p-10">
+        {/* Header */}
+        <h2 className="text-3xl font-bold text-center mb-8 text-red-600">
+          Update Pet
+        </h2>
 
-            {/* Image Upload */}
-            <div>
-              <label>Pet Image:</label>
-              <input
-                type="file"
-                onChange={(e) => handleImageUpload(e, setFieldValue)}
-                className="input"
-              />
-              {uploading && <p>Uploading petImage...</p>}
-              {values.petImage && (
-                <img src={values.petImage} alt="Uploaded" className="h-24 mt-2" />
-              )}
-              <ErrorMessage name="petImage" component="div" className="text-red-500" />
-            </div>
+        <Formik
+          initialValues={{
+            petName: petData.petName || "",
+            type: petData.type || "",
+            breed: petData.breed || "",
+            age: petData.age || "",
+            gender: petData.gender || "",
+            location: petData.location || "",
+            shortDesc: petData.shortDesc || "",
+            longDesc: petData.longDesc || "",
+            petImage: petData.petImage || "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({ setFieldValue, isSubmitting, values }) => (
+            <Form className="space-y-5">
+              {/* Image Upload */}
+              <div>
+                <label className="block font-medium mb-1">Pet Image</label>
+                <input
+                  type="file"
+                  onChange={(e) => handleImageUpload(e, setFieldValue)}
+                  className="block w-full text-sm text-gray-600 
+                    file:mr-3 file:py-2 file:px-4 
+                    file:rounded-full file:border-0 
+                    file:bg-blue-100 file:text-blue-700 
+                    hover:file:bg-blue-200 cursor-pointer"
+                />
+                {uploading && <p className="text-sm text-gray-500">Uploading...</p>}
+                {values.petImage && (
+                  <img
+                    src={values.petImage}
+                    alt="Uploaded"
+                    className="h-28 w-28 mt-3 rounded-lg border shadow-md object-cover"
+                  />
+                )}
+                <ErrorMessage name="petImage" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Name */}
-            <div>
-              <label>Pet Name:</label>
-              <Field name="petName" className="input input-bordered w-full" />
-              <ErrorMessage name="petName" component="div" className="text-red-500" />
-            </div>
+              {/* Pet Name */}
+              <div>
+                <label className="block font-medium mb-1">Pet Name</label>
+                <Field
+                  name="petName"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+                <ErrorMessage name="petName" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Type */}
-            <div>
-              <label>Pet Category:</label>
-              <Select
-                options={petCategories}
-                value={petCategories.find((opt) => opt.value === values.type)}
-                onChange={(option) => setFieldValue("type", option.value)}
-              />
-              <ErrorMessage name="type" component="div" className="text-red-500" />
-            </div>
+              {/* Pet Category */}
+              <div>
+                <label className="block font-medium mb-1">Pet Category</label>
+                <Select
+                  options={petCategories}
+                  value={petCategories.find((opt) => opt.value === values.type)}
+                  onChange={(option) => setFieldValue("type", option.value)}
+                />
+                <ErrorMessage name="type" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Breed */}
-            <div>
-              <label>Breed:</label>
-              <Field name="breed" className="input input-bordered w-full" />
-            </div>
+              {/* Breed */}
+              <div>
+                <label className="block font-medium mb-1">Breed</label>
+                <Field
+                  name="breed"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+              </div>
 
-            {/* Age */}
-            <div>
-              <label>Age:</label>
-              <Field name="age" type="number" className="input input-bordered w-full" />
-              <ErrorMessage name="age" component="div" className="text-red-500" />
-            </div>
+              {/* Age */}
+              <div>
+                <label className="block font-medium mb-1">Age</label>
+                <Field
+                  name="age"
+                  type="number"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+                <ErrorMessage name="age" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Gender */}
-            <div>
-              <label>Gender:</label>
-              <Field as="select" name="gender" className="input input-bordered w-full">
-                <option value="">Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </Field>
-            </div>
+              {/* Gender */}
+              <div>
+                <label className="block font-medium mb-1">Gender</label>
+                <Field
+                  as="select"
+                  name="gender"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                >
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </Field>
+              </div>
 
-            {/* Location */}
-            <div>
-              <label>Location:</label>
-              <Field name="location" className="input input-bordered w-full" />
-              <ErrorMessage name="location" component="div" className="text-red-500" />
-            </div>
+              {/* Location */}
+              <div>
+                <label className="block font-medium mb-1">Location</label>
+                <Field
+                  name="location"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+                <ErrorMessage name="location" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Description */}
-            <div>
-              <label>Short Description:</label>
-              <Field name="shortDesc" className="input input-bordered w-full" />
-              <ErrorMessage name="shortDesc" component="div" className="text-red-500" />
-            </div>
+              {/* Short Description */}
+              <div>
+                <label className="block font-medium mb-1">Short Description</label>
+                <Field
+                  name="shortDesc"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+                <ErrorMessage name="shortDesc" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            <div>
-              <label>Long Description:</label>
-              <Field
-                name="longDesc"
-                as="textarea"
-                className="textarea textarea-bordered w-full"
-              />
-              <ErrorMessage name="longDesc" component="div" className="text-red-500" />
-            </div>
+              {/* Long Description */}
+              <div>
+                <label className="block font-medium mb-1">Long Description</label>
+                <Field
+                  name="longDesc"
+                  as="textarea"
+                  rows="4"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                />
+                <ErrorMessage name="longDesc" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            {/* Submit */}
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-              {isSubmitting ? "Updating..." : "Update Pet"}
-            </button>
-          </Form>
-        )}
-      </Formik>
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-md transition disabled:opacity-60"
+              >
+                {isSubmitting ? "Updating..." : "Update Pet"}
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
 
 export default UpdatePet;
-
-
-

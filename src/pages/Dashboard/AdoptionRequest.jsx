@@ -36,7 +36,7 @@ const AdoptionRequest = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Adoption Requests</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-red-600">Adoption Requests</h2>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full text-sm">

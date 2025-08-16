@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -19,7 +18,6 @@ const CreateDonationCampaign = () => {
   const axiosSecure = useAxiosSecure();
   const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
-
   const { user } = useContext(AuthContext);
 
   const handleImageUpload = async (e) => {
@@ -53,7 +51,7 @@ const CreateDonationCampaign = () => {
       userDonationPostEmail: user?.email || "unknown@example.com",
       userDonationPostName: user?.displayName || "Anonymous",
       userEmail: user?.email || "unknown@example.com",
-      donate: false, // default status
+      donate: false,
     };
 
     try {
@@ -77,7 +75,7 @@ const CreateDonationCampaign = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4">
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl">
       <h1 className="text-center font-bold text-3xl text-red-600 pb-5">
         Create Donation Campaign
       </h1>
@@ -94,50 +92,84 @@ const CreateDonationCampaign = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="space-y-4">
-            <div>
-              <label>Pet Image:</label>
-              <input type="file" onChange={handleImageUpload} className="input" />
-              {uploading && <p>Uploading image...</p>}
-              {imageUrl && <img src={imageUrl} alt="Uploaded" className="h-24 mt-2 " />}
+          <Form className="space-y-5">
+            {/* Pet Image */}
+            <div className="flex flex-col items-center">
+              <label className="font-medium mb-2">Pet Image:</label>
+              <input
+                type="file"
+                onChange={handleImageUpload}
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
+              {uploading && <p className="text-gray-500 mt-2">Uploading image...</p>}
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="Uploaded"
+                  className="h-32 w-32 object-cover rounded-lg mt-3 shadow-md"
+                />
+              )}
             </div>
 
+            {/* Pet Name */}
             <div>
-              <label>Pet Name:</label>
-              <Field name="petName" className="input input-bordered w-full" />
-              <ErrorMessage name="petName" component="div" className="text-red-500" />
+              <label className="font-medium">Pet Name:</label>
+              <Field name="petName" className="input input-bordered w-full mt-1" />
+              <ErrorMessage name="petName" component="div" className="text-red-500 mt-1" />
             </div>
 
+            {/* Maximum Donation Amount */}
             <div>
-              <label>Maximum Donation Amount:</label>
-              <Field name="maxAmount" type="number" className="input input-bordered w-full" />
-              <ErrorMessage name="maxAmount" component="div" className="text-red-500" />
+              <label className="font-medium">Maximum Donation Amount:</label>
+              <Field
+                name="maxAmount"
+                type="number"
+                className="input input-bordered w-full mt-1"
+              />
+              <ErrorMessage name="maxAmount" component="div" className="text-red-500 mt-1" />
             </div>
 
+            {/* Last Date */}
             <div>
-              <label>Last Date of Donation:</label>
-              <Field name="lastDate" type="date" className="input input-bordered w-full" />
-              <ErrorMessage name="lastDate" component="div" className="text-red-500" />
+              <label className="font-medium">Last Date of Donation:</label>
+              <Field
+                name="lastDate"
+                type="date"
+                className="input input-bordered w-full mt-1"
+              />
+              <ErrorMessage name="lastDate" component="div" className="text-red-500 mt-1" />
             </div>
 
+            {/* Short Description */}
             <div>
-              <label>Short Description:</label>
-              <Field name="shortDesc" className="input input-bordered w-full" />
-              <ErrorMessage name="shortDesc" component="div" className="text-red-500" />
+              <label className="font-medium">Short Description:</label>
+              <Field name="shortDesc" className="input input-bordered w-full mt-1" />
+              <ErrorMessage name="shortDesc" component="div" className="text-red-500 mt-1" />
             </div>
 
+            {/* Long Description */}
             <div>
-              <label>Long Description:</label>
-              <Field as="textarea" name="longDesc" className="textarea textarea-bordered w-full" />
-              <ErrorMessage name="longDesc" component="div" className="text-red-500" />
+              <label className="font-medium">Long Description:</label>
+              <Field
+                as="textarea"
+                name="longDesc"
+                className="textarea textarea-bordered w-full mt-1"
+              />
+              <ErrorMessage name="longDesc" component="div" className="text-red-500 mt-1" />
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="btn btn-primary w-full mt-3"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Creating..." : "Create Campaign"}
             </button>
 
+            {/* Created By */}
             {user?.displayName && (
-              <p className="text-sm text-gray-500 text-center">
+              <p className="text-sm text-gray-500 text-center mt-2">
                 Created By: {user.displayName}
               </p>
             )}

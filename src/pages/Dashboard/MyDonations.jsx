@@ -56,11 +56,21 @@ const MyDonations = () => {
     }
   };
 
-  if (loading) return <div className="text-center py-20">Loading donations...</div>;
+  if (loading) return <div className="text-center py-20">
+
+
+    <span className="loading loading-bars loading-xs"></span>
+    <span className="loading loading-bars loading-sm"></span>
+    <span className="loading loading-bars loading-md"></span>
+    <span className="loading loading-bars loading-lg"></span>
+    <span className="loading loading-bars loading-xl"></span>
+
+
+  </div>;
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-6 text-green-700">My Donations</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-red-600">My Donations</h2>
       {donatedCampaigns.length === 0 ? (
         <p className="text-center text-gray-500">You haven't donated to any campaign yet.</p>
       ) : (

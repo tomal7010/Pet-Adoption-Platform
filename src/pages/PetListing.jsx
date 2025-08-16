@@ -8,18 +8,22 @@ const PetListing = () => {
   const [pets, setPets] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true); 
 
   const categories = ["All", "Cat", "Dog", "Rabbit", "Fish"];
 
   useEffect(() => {
     const fetchPets = async () => {
       try {
+        setLoading(true); 
         const response = await axiosInstance.get("/preview-pets");
         const data = response.data;
         const availablePets = data.filter((pet) => !pet.adopted);
         setPets(availablePets);
       } catch (err) {
         console.error("Error fetching pets:", err);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -73,7 +77,21 @@ const PetListing = () => {
           />
         </div>
 
-        {filteredPets.length === 0 ? (
+        {/*  Loading */}
+        {loading ? (
+          <p className="text-center text-gray-500 text-lg">
+
+
+            <span className="loading loading-bars loading-xs"></span>
+            <span className="loading loading-bars loading-sm"></span>
+            <span className="loading loading-bars loading-md"></span>
+            <span className="loading loading-bars loading-lg"></span>
+            <span className="loading loading-bars loading-xl"></span>
+
+
+
+          </p>
+        ) : filteredPets.length === 0 ? (
           <p className="text-center text-gray-500">No pets found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -83,19 +101,16 @@ const PetListing = () => {
                 className="border p-4 rounded shadow hover:shadow-md transition flex flex-col"
               >
                 <img
-                  src={
-                    pet.petImage ||
-                    "https://via.placeholder.com/300x200"
-                  }
+                  src={pet.petImage || "https://via.placeholder.com/300x200"}
                   alt={pet.petName}
                   className="w-full h-48 object-cover rounded mb-3"
                 />
                 <div className="text-center">
-                  <h2 className="text-xl font-semibold capitalize">{pet.petName}</h2>
-                  <p className="text-sm text-gray-600">Age: {pet.age}</p>
-                  <p className="text-sm text-gray-600 capitalize">
-                    Type: {pet.type}
-                  </p>
+                  <h2 className="text-xl font-semibold capitalize">
+                    {pet.petName}
+                  </h2>
+                  <p className="text-sm text-gray-600">Age: {pet.age} Year</p>
+                  <p className="text-sm text-gray-600 capitalize">Type: {pet.type}</p>
                 </div>
 
                 <button

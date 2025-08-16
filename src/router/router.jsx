@@ -24,12 +24,14 @@ import AdminRoute from "../hooks/AdminRoute";
 import AdminAllPets from "../pages/Dashboard/admin/AdminAllPets";
 import AdminAllDonations from "../pages/Dashboard/admin/AdminAllDonations";
 import EditAdminDonation from "../pages/Dashboard/admin/EditAdminDonation";
+import ErrorPage from "../pages/ErrorPage";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component : RootLayout,
+    errorElement: <ErrorPage />,
     children: [
         {
             index: true,
@@ -66,6 +68,7 @@ export const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout></AuthLayout>,
+    errorElement: <ErrorPage />,
     children : [
       {
         path: "/auth/login",
@@ -81,6 +84,7 @@ export const router = createBrowserRouter([
   {
     path:"/dashboard",
     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    errorElement: <ErrorPage />,
     children : [
       {
         path: "/dashboard/add-pet",

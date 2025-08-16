@@ -67,7 +67,7 @@ const EditDonation = () => {
       } else {
         Swal.fire('Info', 'No changes made', 'info');
       }
-    } catch (err) {
+    } catch (error) {
       Swal.fire('Error', 'Update failed', 'error');
     } finally {
       setSubmitting(false);
@@ -75,7 +75,17 @@ const EditDonation = () => {
   };
 
   if (loading || !campaign) {
-    return <div className="text-center py-20 text-lg">Loading...</div>;
+    return <div className="text-center py-20 text-lg">
+
+
+      <span className="loading loading-bars loading-xs"></span>
+      <span className="loading loading-bars loading-sm"></span>
+      <span className="loading loading-bars loading-md"></span>
+      <span className="loading loading-bars loading-lg"></span>
+      <span className="loading loading-bars loading-xl"></span>
+
+
+    </div>;
   }
 
   return (

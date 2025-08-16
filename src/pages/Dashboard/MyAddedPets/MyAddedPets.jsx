@@ -84,7 +84,18 @@ const MyAddedPets = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <div className="text-center py-10">
+
+
+      <span className="loading loading-bars loading-xs"></span>
+      <span className="loading loading-bars loading-sm"></span>
+      <span className="loading loading-bars loading-md"></span>
+      <span className="loading loading-bars loading-lg"></span>
+      <span className="loading loading-bars loading-xl"></span>
+
+
+
+    </div>;
   }
 
   // Pagination logic

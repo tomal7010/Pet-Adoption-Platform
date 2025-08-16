@@ -32,7 +32,7 @@ const AdminAllPets = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl text-red-500 text-center font-bold mb-4">All Pets Data List</h2>
+      <h2 className="text-3xl text-red-600 text-center font-bold mb-4">All Pets Data List</h2>
       <table className="table w-full">
         <thead>
           <tr>

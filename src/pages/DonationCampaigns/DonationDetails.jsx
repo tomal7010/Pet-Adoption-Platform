@@ -28,7 +28,16 @@ const DonationDetails = () => {
     if (id) fetchCampaign();
   }, [id, axiosInstance]);
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
+  if (loading) return <div className="text-center py-20">
+
+            <span className="loading loading-bars loading-xs"></span>
+            <span className="loading loading-bars loading-sm"></span>
+            <span className="loading loading-bars loading-md"></span>
+            <span className="loading loading-bars loading-lg"></span>
+            <span className="loading loading-bars loading-xl"></span>
+
+
+  </div>;
 
   return (
     <div>
