@@ -74,7 +74,7 @@ const DonationCampaigns = () => {
     <div>
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-6">Donation Campaigns</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-red-600">Donation Campaigns</h2>
 
         {/* Search + Sorting */}
         <div className="flex flex-col sm:flex-row justify-between mb-6 gap-4">

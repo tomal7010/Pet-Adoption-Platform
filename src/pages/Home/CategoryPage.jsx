@@ -31,12 +31,25 @@ const CategoryPage = () => {
   }, [type, axiosInstance]);
 
   if (loading) {
-    return <p className="p-6">Loading...</p>;
+    return <p className="p-6">
+
+
+
+            <span className="loading loading-bars loading-xs"></span>
+            <span className="loading loading-bars loading-sm"></span>
+            <span className="loading loading-bars loading-md"></span>
+            <span className="loading loading-bars loading-lg"></span>
+            <span className="loading loading-bars loading-xl"></span>
+
+
+
+
+    </p>;
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold capitalize mb-6">{type} Available</h1>
+      <h1 className="text-3xl font-bold capitalize mb-6 text-red-600">{type} Available</h1>
 
       {pets.length === 0 ? (
         <p>No {type} found.</p>
